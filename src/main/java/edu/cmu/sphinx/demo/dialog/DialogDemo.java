@@ -1,13 +1,3 @@
-/*
- * Copyright 2013 Carnegie Mellon University.
- * Portions Copyright 2004 Sun Microsystems, Inc.
- * Portions Copyright 2004 Mitsubishi Electric Research Laboratories.
- * All Rights Reserved.  Use is subject to license terms.
- *
- * See the file "license.terms" for information on usage and
- * redistribution of this file, and for a DISCLAIMER OF ALL
- * WARRANTIES.
- */
 
 package edu.cmu.sphinx.demo.dialog;
 
@@ -22,7 +12,6 @@ import java.lang.Thread;
 
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
-
 
 public class DialogDemo {
 
@@ -162,40 +151,6 @@ public class DialogDemo {
     
 
 
-    private static void recognizerBankAccount(LiveSpeechRecognizer recognizer) {
-        System.out.println("This is bank account voice menu");
-        System.out.println("-------------------------------");
-        System.out.println("Example: balance");
-        System.out.println("Example: withdraw zero point five");
-        System.out.println("Example: deposit one two three");
-        System.out.println("Example: back");
-        System.out.println("-------------------------------");
-
-        double savings = .0;
-        recognizer.startRecognition(true);
-
-        while (true) {
-            String utterance = recognizer.getResult().getHypothesis();
-            if (utterance.endsWith("back")) {
-                break;
-            } else if (utterance.startsWith("deposit")) {
-                double deposit = parseNumber(utterance.split("\\s"));
-                savings += deposit;
-                System.out.format("Deposited: $%.2f\n", deposit);
-            } else if (utterance.startsWith("withdraw")) {
-                double withdraw = parseNumber(utterance.split("\\s"));
-                savings -= withdraw;
-                System.out.format("Withdrawn: $%.2f\n", withdraw);
-            } else if (!utterance.endsWith("balance")) {
-                System.out.println("Unrecognized command: " + utterance);
-            }
-
-            System.out.format("Your savings: $%.2f\n", savings);
-        }
-
-        recognizer.stopRecognition();
-    }
-
     public static void main(String[] args) throws Exception {
         Configuration configuration = new Configuration();
         configuration.setAcousticModelPath(ACOUSTIC_MODEL);
@@ -203,23 +158,10 @@ public class DialogDemo {
         configuration.setGrammarPath(GRAMMAR_PATH);
         configuration.setUseGrammar(true);
 
-        /*
-        configuration.setGrammarName("dialog");
-        LiveSpeechRecognizer jsgfRecognizer =
-            new LiveSpeechRecognizer(configuration);
-
-        configuration.setGrammarName("digits.grxml");
-        LiveSpeechRecognizer grxmlRecognizer =
-            new LiveSpeechRecognizer(configuration);
-            */
-
 
         configuration.setUseGrammar(false);
         configuration.setLanguageModelPath(LANGUAGE_MODEL);
-        //LiveSpeechRecognizer lmRecognizer =
-        //    new LiveSpeechRecognizer(configuration);
 
-        //lmRecognizer.startRecognition(true);
         while (true) {
             LiveSpeechRecognizer lmRecognizer =
                 new LiveSpeechRecognizer(configuration);
@@ -234,15 +176,19 @@ public class DialogDemo {
             }
 
             if (utterance.length() > 0) {
-                
+                // to insert command here for controlling lights
+		// "ls -l" is an example
                 String results = executeCommand("ls -l");
+
                 System.out.println(results);
                 System.out.println("\n");
                 
                 String tts = encode("Received command " + utterance);
                 
-
-                PrintWriter writer = new PrintWriter("/tmp/the-file-name.txt", "UTF-8");
+		// confirmation of command
+		// need to expand to provide a proper feedback loop
+                PrintWriter writer = 
+		    new PrintWriter("/tmp/the-file-name.txt", "UTF-8");
                 writer.println("/usr/bin/wget -q -U Mozilla " +
                                " \"http://translate.google.com/translate_tts?tl=en&q=" + 
                                 tts + "\" " +
@@ -251,18 +197,9 @@ public class DialogDemo {
                 writer.close();
                 String res = executeCommand("/bin/bash /tmp/the-file-name.txt");
                 Thread.sleep(600);
-                
-            }
-            /*
-            
-            if (utterance.equals("bank account")) {
-                jsgfRecognizer.stopRecognition();
-                recognizerBankAccount(jsgfRecognizer);
-                jsgfRecognizer.startRecognition(true);
-            }
 
-            */
+            }
         }
     }
-    //lmRecognizer.stopRecognition();
+
 }
