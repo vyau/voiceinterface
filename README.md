@@ -1,6 +1,6 @@
 # voiceinterface
 voice recognition and text to speech for controlling household devices<p>
-turning on lights is first attempt <p>
+  02/20/2015:  turning on lights is first attempt <p>
 
 Voice Recognition using CMU Sphinx4 <p>
 Text to Speech using Google TTS <p>
