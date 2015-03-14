@@ -1,0 +1,82 @@
+Language model created by QuickLM on Thu Mar 12 01:42:32 EDT 2015
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 12 sentences and 9 words
+
+\data\
+ngram 1=9
+ngram 2=20
+ngram 3=30
+
+\1-grams:
+-0.7659 </s> -0.2194
+-0.7659 <s> -0.1280
+-2.1461 ANSWER -0.2194
+-1.8451 LIGHT -0.2688
+-1.5441 LIGHTS -0.2688
+-1.4472 OFF -0.2194
+-1.4472 ON -0.2194
+-2.1461 REJECT -0.2194
+-1.5441 TURN -0.2553
+
+\2-grams:
+-0.6021 </s> </s> -0.3010
+-0.6021 <s> <s> -0.1761
+-1.6812 <s> ANSWER 0.0000
+-1.3802 <s> LIGHT 0.0000
+-1.3802 <s> LIGHTS 0.0000
+-1.6812 <s> OFF 0.0000
+-1.6812 <s> ON 0.0000
+-1.6812 <s> REJECT 0.0000
+-1.0792 <s> TURN 0.0000
+-0.3010 ANSWER </s> -0.1761
+-0.6021 LIGHT OFF 0.0000
+-0.6021 LIGHT ON 0.0000
+-0.6021 LIGHTS OFF 0.0000
+-0.6021 LIGHTS ON 0.0000
+-0.3010 OFF </s> -0.1761
+-0.3010 ON </s> -0.1761
+-0.3010 REJECT </s> -0.1761
+-0.6021 TURN LIGHTS 0.0000
+-0.9031 TURN OFF 0.0000
+-0.9031 TURN ON 0.0000
+
+\3-grams:
+-1.3802 <s> <s> ANSWER
+-1.0792 <s> <s> LIGHT
+-1.0792 <s> <s> LIGHTS
+-1.3802 <s> <s> OFF
+-1.3802 <s> <s> ON
+-1.3802 <s> <s> REJECT
+-0.7782 <s> <s> TURN
+-0.3010 <s> ANSWER </s>
+-0.6021 <s> LIGHT OFF
+-0.6021 <s> LIGHT ON
+-0.6021 <s> LIGHTS OFF
+-0.6021 <s> LIGHTS ON
+-0.3010 <s> OFF </s>
+-0.3010 <s> ON </s>
+-0.3010 <s> REJECT </s>
+-0.6021 <s> TURN LIGHTS
+-0.9031 <s> TURN OFF
+-0.9031 <s> TURN ON
+-0.3010 ANSWER </s> </s>
+-0.3010 LIGHT OFF </s>
+-0.3010 LIGHT ON </s>
+-0.3010 LIGHTS OFF </s>
+-0.3010 LIGHTS ON </s>
+-0.3010 OFF </s> </s>
+-0.3010 ON </s> </s>
+-0.3010 REJECT </s> </s>
+-0.6021 TURN LIGHTS OFF
+-0.6021 TURN LIGHTS ON
+-0.3010 TURN OFF </s>
+-0.3010 TURN ON </s>
+
+\end\

@@ -1,0 +1,13 @@
+<s> turn lights on </s>
+<s> turn lights off </s>
+<s> on </s>
+<s> off </s>
+<s> turn on </s>
+<s> turn off </s>
+<s> light on </s>
+<s> light off </s>
+<s> lights on </s>
+<s> lights off </s>
+<s> reject </s>
+<s> answer </s>
+
