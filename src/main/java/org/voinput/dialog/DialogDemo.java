@@ -47,8 +47,9 @@ public class DialogDemo extends Thread {
     boolean listenState = false;
     boolean threadState = false;
     String utterance = "";
+    PrintWriter writer = null;
 
-    private DialogDemo() {
+    public DialogDemo() {
         configuration = new Configuration();
         configuration.setAcousticModelPath(ACOUSTIC_MODEL);
         configuration.setDictionaryPath(DICTIONARY_PATH);
@@ -56,17 +57,15 @@ public class DialogDemo extends Thread {
         configuration.setUseGrammar(true);
         configuration.setUseGrammar(false);
         configuration.setLanguageModelPath(LANGUAGE_MODEL);
+        try {
+            writer = new PrintWriter("/tmp/voinput.txt", "UTF-8");
+        } catch (Exception e) {
+            System.out.println("PrintWriter problem");
+        }
+
     }
 
-    /**
-    * Obtain instance to the class
-    */
-    public static DialogDemo getDialogDemoInstance() {
-        if (singleDialogInstance == null) {
-            singleDialogInstance = new DialogDemo();
-        }
-        return singleDialogInstance;
-    }
+
 
 
     /**
@@ -162,7 +161,10 @@ public class DialogDemo extends Thread {
                 lmRecognizer.startRecognition(true);
                 listenState = true;
                 utterance = lmRecognizer.getResult().getHypothesis();
-              
+                writer.println("matched " + utterance + "\n");
+                writer.flush();
+                System.out.println("matched " + utterance + "\n");
+                
                 // to do: 
                 //  "command to start/exit recognition"
                 stopRecognition();
@@ -171,7 +173,8 @@ public class DialogDemo extends Thread {
        } catch (Exception e) {
            lmRecognizer = null;
            listenState = false;
-           threadState = false;
+       } finally {
+         writer.close();
        }
     }
 
@@ -181,7 +184,6 @@ public class DialogDemo extends Thread {
     *  @See DialogDemo#startRecognition()
     */
     public void stopRecognition() {
-        //utterance = lmRecognizer.getResult().getHypothesis();
         lmRecognizer.stopRecognition();
         lmRecognizer = null;
         listenState = false;
@@ -203,15 +205,17 @@ public class DialogDemo extends Thread {
     }
 
     public void run() {
-        if (!threadState) {
+        
             threadState = true;
             startRecognition();
-        }
+        
        
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("No command line interface");
-        
+       // System.out.println("No command line interface");
+        DialogDemo dd = new DialogDemo();
+        dd.start();
+
     }
 }
